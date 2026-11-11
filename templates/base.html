@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffec45">
+  <meta name="description" content="CleanCraft — generate sample data, review data quality, clean datasets and explore suitable machine learning models.">
+  <title>{% block title %}CleanCraft{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <a href="{{ url_for('home') }}" class="brand" aria-label="CleanCraft Home">CleanCraft<span class="brand-period">.</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="{{ url_for('home') }}" {% if page == 'home' %}aria-current="page"{% endif %}>Home</a>
+        <a href="{{ url_for('generate') }}" {% if page == 'generate' %}aria-current="page"{% endif %}>Generate</a>
+        <a href="{{ url_for('upload') }}" {% if page in ['upload','analysis','cleaning','recommendations'] %}aria-current="page"{% endif %}>Upload &amp; Clean</a>
+        <a href="{{ url_for('report') }}" {% if page == 'report' %}aria-current="page"{% endif %}>Report</a>
+        <a href="{{ url_for('home') }}#why">About</a>
+      </nav>
+      <a href="{{ url_for('upload') }}" class="btn btn-pink nav-start">Get Started <span aria-hidden="true">→</span></a>
+    </header>
+    {% block body %}{% endblock %}
+    <footer class="footer">
+      <span>© 2026 CleanCraft. Made for simpler ML preparation.</span>
+      <span><a href="{{ url_for('generate') }}">Generate Dataset</a><span class="footer-dot">·</span><a href="{{ url_for('upload') }}">Upload &amp; Clean</a></span>
+    </footer>
+  </div>
+  <div class="toast" id="ui-toast" role="status" aria-live="polite" hidden></div>
+  <script src="{{ url_for('static', filename='js/ui.js') }}" defer></script>
+</body>
+</html>

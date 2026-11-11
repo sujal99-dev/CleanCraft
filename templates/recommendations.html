@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% from '_stepper.html' import stepper %}
+{% block title %}Top 4 ML Recommendations | CleanCraft{% endblock %}
+{% block body %}
+<main class="page">
+  <div class="page-title"><span class="title-icon pink">⋈</span><div><h1>ML Model Recommendation</h1><p>Explore four suitable machine learning algorithms for your prediction target.</p></div></div>
+  {{ stepper(4) }}
+  <div class="demo-note">Illustrative recommendations only — no ML models have been trained.</div>
+  <div class="recommend-grid">
+    <section class="models-card panel-box">
+      <div class="target-row"><label for="target-select">Example target column:</label><select id="target-select" aria-label="Example target column"><option value="classification">Result (Classification)</option><option value="regression">Price (Regression)</option></select></div>
+      <table class="models-table"><thead><tr><th>Rank</th><th>Model</th><th>Task</th><th>Why Recommended</th></tr></thead><tbody id="model-rows">
+        <tr><td class="rank-cell">🥇 1</td><td>Random Forest Classifier</td><td>Classification</td><td>Handles nonlinear relationships in tabular features</td></tr>
+        <tr><td class="rank-cell">🥈 2</td><td>Gradient Boosting Classifier</td><td>Classification</td><td>Strong candidate for structured datasets</td></tr>
+        <tr><td class="rank-cell">🥉 3</td><td>Logistic Regression</td><td>Classification</td><td>Interpretable, practical baseline</td></tr>
+        <tr><td class="rank-cell">④ 4</td><td>Decision Tree Classifier</td><td>Classification</td><td>Easy to explain and visualize</td></tr>
+      </tbody></table>
+    </section>
+    <aside class="next-card panel-box"><h2 class="panel-heading green">Next Steps</h2><p>Review the sample rankings, then preview how your final report will look.</p><a href="{{ url_for('report') }}" class="btn btn-yellow full-width">Go to Final Report →</a><p class="muted tiny">Rankings are not measured model performance.</p></aside>
+  </div>
+  <div class="bottom-links"><a class="btn btn-outline" href="{{ url_for('cleaning') }}">← Back to Cleaning</a></div>
+</main>
+{% endblock %}

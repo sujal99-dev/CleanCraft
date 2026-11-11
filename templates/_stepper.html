@@ -1,0 +1,11 @@
+{% macro stepper(active) -%}
+<nav class="stepper" aria-label="Data preparation workflow">
+  {% set labels = ['Upload', 'Analyze', 'Clean', 'Recommend', 'Report'] %}
+  {% for label in labels %}
+  <div class="step {% if loop.index < active %}done{% elif loop.index == active %}active{% endif %}" {% if loop.index == active %}aria-current="step"{% endif %}>
+    <span class="step-bubble">{% if loop.index < active %}✓{% else %}{{ loop.index }}{% endif %}</span>
+    <span class="step-label">{{ label }}</span>
+  </div>
+  {% endfor %}
+</nav>
+{%- endmacro %}

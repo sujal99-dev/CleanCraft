@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Home | CleanCraft{% endblock %}
+{% block body %}
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>MESSY DATA?<br><span class="highlight">WE FIX THAT.</span></h1>
+      <p class="hero-description">CleanCraft cleans, standardizes and analyzes your data, then suggests the <strong>top 4 machine learning models</strong>—all in one place.</p>
+      <div class="hero-ctas">
+        <a href="{{ url_for('upload') }}" class="btn btn-yellow btn-large"><span class="button-icon">↥</span> Upload &amp; Clean Data</a>
+        <a href="{{ url_for('generate') }}" class="btn btn-pink btn-large"><span class="button-icon">▱</span> Generate Dataset</a>
+      </div>
+    </div>
+    <div class="hero-illustration" aria-label="Illustration of the CleanCraft data analytics application" role="img">
+      <svg viewBox="0 0 530 395" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M130 43C206-12 316 28 355 66s83 85 54 172-154 155-252 91S30 129 130 43Z" fill="#e3d2ff"/>
+        <path d="M389 25l6-16 6 16 16 5-16 6-6 16-6-16-16-6z" fill="#ffe747" stroke="#141414" stroke-width="4"/>
+        <path d="M83 156l6-16 6 16 16 5-16 6-6 16-6-16-16-6z" fill="#ffe747" stroke="#141414" stroke-width="4"/>
+        <g transform="translate(102 66) rotate(2 160 145)">
+          <rect x="14" y="12" width="320" height="249" rx="19" fill="#141414"/>
+          <rect x="2" y="0" width="320" height="249" rx="19" fill="#b9a3ff" stroke="#141414" stroke-width="6"/>
+          <rect x="19" y="19" width="286" height="208" rx="11" fill="#fff" stroke="#141414" stroke-width="5"/>
+          <text x="162" y="54" text-anchor="middle" font-size="28" font-family="Arial,sans-serif" font-weight="900" fill="#141414">CleanCraft.</text>
+          <line x1="43" y1="191" x2="189" y2="191" stroke="#141414" stroke-width="4"/>
+          <rect x="53" y="142" width="24" height="49" rx="2" fill="#9be8ff" stroke="#141414" stroke-width="3"/>
+          <rect x="88" y="120" width="24" height="71" rx="2" fill="#ffadcf" stroke="#141414" stroke-width="3"/>
+          <rect x="123" y="98" width="24" height="93" rx="2" fill="#ffec45" stroke="#141414" stroke-width="3"/>
+          <rect x="158" y="84" width="24" height="107" rx="2" fill="#aaf0c7" stroke="#141414" stroke-width="3"/>
+          <circle cx="244" cy="114" r="32" fill="#ffec45" stroke="#141414" stroke-width="4"/>
+          <path d="M244 114V82a32 32 0 0 1 28 17Z" fill="#ff9fcf" stroke="#141414" stroke-width="3"/>
+          <path d="M244 114h32a32 32 0 0 1-31 32Z" fill="#95e4ff" stroke="#141414" stroke-width="3"/>
+          <path d="m225 172 8 8 15-17M225 195l8 8 15-17" fill="none" stroke="#141414" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="-31" y="252" width="387" height="23" rx="10" fill="#b9a3ff" stroke="#141414" stroke-width="5"/>
+          <path d="M116 276h114l-16 8h-84z" fill="#141414"/>
+        </g>
+        <path d="m445 79 12-27m15 40 23-18" stroke="#141414" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="feature-row" aria-label="CleanCraft main features">
+    <article class="feature-card blue"><div class="feature-icon">🧹</div><h3>Automated<br>Data Cleaning</h3><p>Find missing values, duplicates and inconsistent formats.</p></article>
+    <article class="feature-card yellow"><div class="feature-icon">▥</div><h3>Data<br>Analysis</h3><p>Understand the overall quality of your uploaded dataset.</p></article>
+    <article class="feature-card pink"><div class="feature-icon">▥</div><h3>Top 4 ML<br>Recommendations</h3><p>See four suitable algorithms for your prediction task.</p></article>
+    <article class="feature-card green"><div class="feature-icon">▤</div><h3>Final Report<br>&amp; Export</h3><p>Review changes and export a cleaned dataset and report.</p></article>
+  </section>
+
+  <section class="how-section" id="how-it-works">
+    <h2 class="ribbon lavender">How CleanCraft Works</h2>
+    <div class="how-row">
+      <div class="how-step"><span class="how-number">1</span><span class="how-icon">↥</span><strong>Upload or<br>Generate Data</strong></div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="how-step"><span class="how-number">2</span><span class="how-icon">✦</span><strong>Analyze &amp;<br>Clean</strong></div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="how-step"><span class="how-number">3</span><span class="how-icon">⋈</span><strong>Get Top 4<br>ML Suggestions</strong></div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="how-step"><span class="how-number">4</span><span class="how-icon">▤</span><strong>Review &amp;<br>Download</strong></div>
+    </div>
+  </section>
+
+  <section class="why-section" id="why">
+    <h2 class="ribbon yellow">Why Choose CleanCraft?</h2>
+    <div class="benefit-strip">
+      <div>◎ <span>Clear<br>Results</span></div>
+      <div>ϟ <span>Simple<br>Workflow</span></div>
+      <div>⚙ <span>One<br>Platform</span></div>
+      <div>▥ <span>ML-Focused<br>Guidance</span></div>
+      <div>♧ <span>User<br>Control</span></div>
+    </div>
+  </section>
+  <div class="home-last-cta"><span>Ready to work with better data?</span><a class="btn btn-yellow" href="{{ url_for('upload') }}">Start with your CSV →</a></div>
+</main>
+{% endblock %}

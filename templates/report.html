@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% from '_stepper.html' import stepper %}
+{% block title %}Final Report | CleanCraft{% endblock %}
+{% block body %}
+<main class="page">
+  <div class="page-title"><span class="title-icon lilac">▤</span><div><h1>Final Report</h1><p>Overview of your dataset, cleaning changes and suggested ML models.</p></div></div>
+  {{ stepper(5) }}
+  <div class="demo-note">SAMPLE REPORT — these numbers are examples, not results from an uploaded CSV.</div>
+  <div class="report-grid">
+    <section class="panel-box report-summary"><h2 class="panel-heading lavender">Dataset Overview</h2>
+      <div class="report-keyvalues"><div><span>Rows (example)</span><strong>4,955</strong></div><div><span>Columns</span><strong>12</strong></div><div><span>Missing Values</span><strong>0</strong></div><div><span>Duplicate Rows</span><strong>0</strong></div></div>
+    </section>
+    <section class="panel-box report-operations"><h2 class="panel-heading green">Cleaning Operations</h2>
+      <ul class="tick-list"><li>Missing values handled</li><li>Exact duplicates reviewed</li><li>Numeric formats standardized</li><li>Categories checked</li><li>Potential outliers flagged</li><li>Similarity suggestions reviewed</li></ul>
+    </section>
+    <section class="panel-box report-models"><h2 class="panel-heading pink">Top 4 ML Models</h2><ol><li>Random Forest</li><li>Gradient Boosting</li><li>Logistic Regression</li><li>Decision Tree</li></ol></section>
+  </div>
+  <div class="report-buttons"><button type="button" class="btn btn-yellow is-disabled" disabled title="Available after backend implementation">↓ Download Cleaned CSV</button><button type="button" class="btn btn-lavender is-disabled" disabled title="Available after backend implementation">▤ Download Report (PDF)</button><a href="{{ url_for('upload') }}" class="btn btn-outline">↻ Start New Analysis</a></div>
+</main>
+{% endblock %}

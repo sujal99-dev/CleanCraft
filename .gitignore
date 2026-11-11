@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+.venv/
+
+# Environment Files
+.env
+.env.*
+
+# Uploaded Datasets
+uploads/
+outputs/
+
+# VS Code
+.vscode/
+
+# ZIP Files
+*.zip
