@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CleanCraft — UI V2 (frontend first)
 
 A Flask-powered, **UI-only** version of the approved Neo-Brutalism website. This is deliberately frontend only: **there is no data upload, Faker generation, actual cleaning, vector similarity execution, model training, or PDF/CSV export yet.** All metrics and recommendations are labeled sample/demo information.
@@ -29,3 +30,7 @@ Workflow: **Upload → Analyze → Clean → Recommend → Report**. Generator i
 ## Integration later
 
 Keep `templates/` and `static/` intact. Replace the demo values with real values returned by backend APIs only after processing succeeds. When ready, implement secure upload validation, safe data-cleaning decisions, similarity suggestions for approval, chosen-target-aware model recommendation, and actual downloads.
+=======
+# CleanCraft
+An end-to-end data platform that automatically cleans messy datasets, generates synthetic data, and recommends optimal machine learning models.
+>>>>>>> 486374ffea53bf2571f4d4ab407e0a59455483b1
