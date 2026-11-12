@@ -5,13 +5,13 @@
 <main class="page">
   <div class="page-title"><span class="title-icon lilac">▥</span><div><h1>Dataset Analysis</h1><p>Understand the quality and structure of your dataset.</p></div></div>
   {{ stepper(2) }}
-  <div class="demo-note">Illustrative UI values only — no CSV has been analyzed.</div>
+  <div class="demo-note">Live metrics from your current dataset.</div>
   <section class="analysis-cards" aria-label="Sample dataset quality metrics">
-    <div class="stat-card blue"><span class="stat-icon">▦</span><h2>Total Rows</h2><strong>5,000</strong></div>
-    <div class="stat-card lilac"><span class="stat-icon">▥</span><h2>Total Columns</h2><strong>12</strong></div>
-    <div class="stat-card peach"><span class="stat-icon">⚠</span><h2>Missing Values</h2><strong>125</strong></div>
-    <div class="stat-card pink"><span class="stat-icon">▣</span><h2>Duplicate Rows</h2><strong>45</strong></div>
-    <div class="stat-card green"><span class="stat-icon">▤</span><h2>Data Types</h2><strong>4</strong></div>
+    <div class="stat-card blue"><span class="stat-icon">▦</span><h2>Total Rows</h2><strong>{{ metrics.rows | pretty }}</strong></div>
+    <div class="stat-card lilac"><span class="stat-icon">▥</span><h2>Total Columns</h2><strong>{{ metrics.cols | pretty }}</strong></div>
+    <div class="stat-card peach"><span class="stat-icon">⚠</span><h2>Missing Values</h2><strong>{{ metrics.missing_values | pretty }}</strong></div>
+    <div class="stat-card pink"><span class="stat-icon">▣</span><h2>Duplicate Rows</h2><strong>{{ metrics.duplicate_rows | pretty }}</strong></div>
+    <div class="stat-card green"><span class="stat-icon">▤</span><h2>Data Types</h2><strong>{{ metrics.data_types | pretty }}</strong></div>
   </section>
   <div class="bottom-links spread"><a href="{{ url_for('upload') }}" class="btn btn-outline">← Back</a><a href="{{ url_for('cleaning') }}" class="btn btn-yellow">Continue to Cleaning →</a></div>
 </main>

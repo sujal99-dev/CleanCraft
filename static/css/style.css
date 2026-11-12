@@ -94,6 +94,10 @@ button:disabled {cursor:not-allowed}
 .step.done .step-bubble {background:#80efaa}
 .step.active .step-label {background:var(--yellow);border-radius:18px;padding:3px 8px}
 .demo-note,.ui-hint {background:#f4edff;color:#362a43;border:1px dashed #997dd8;border-radius:9px;padding:9px 14px;display:table;margin:0 auto 28px;font-weight:800;font-size:11px;letter-spacing:.01em;text-align:center}
+.flash-stack {display:grid;gap:10px;max-width:1180px;margin:18px auto 0;padding:0 24px}
+.flash-msg {border:var(--border);box-shadow:3px 3px 0 var(--ink);border-radius:10px;padding:10px 12px;font-size:13px;font-weight:850}
+.flash-msg.success {background:#dcfbe4}
+.flash-msg.error {background:#ffe0dd}
 .bottom-links {display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;margin:32px auto 0}
 .bottom-links.spread {justify-content:space-between;max-width:1050px}
 .text-link {font-weight:900;text-decoration:underline}
@@ -119,6 +123,7 @@ button:disabled {cursor:not-allowed}
 .config-form input[readonly] {background:#faf2ff}
 .config-form .btn-form {grid-column:1/-1;max-width:320px;width:100%;justify-self:center;margin-top:5px}
 .generator-preview {padding-bottom:15px}
+.table-wrap {overflow:auto;margin:16px 18px 8px}
 .skeleton-table {margin:16px 18px 8px;border:2px solid #b4a0ed;border-radius:7px;overflow:hidden}
 .skeleton-th,.skeleton-tr {display:grid;grid-template-columns:repeat(5,1fr)}
 .skeleton-th {background:#bfa8ff}

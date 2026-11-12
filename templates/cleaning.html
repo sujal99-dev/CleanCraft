@@ -5,28 +5,29 @@
 <main class="page">
   <div class="page-title"><span class="title-icon yellow">✦</span><div><h1>Data Cleaning</h1><p>Choose how you want to clean and standardize your dataset.</p></div></div>
   {{ stepper(3) }}
-  <div class="demo-note">UI preview — checking an option will not modify your dataset.</div>
+  <div class="demo-note">Choose operations and run cleaning on your dataset.</div>
+  <form method="post" action="{{ url_for('cleaning') }}">
   <div class="cleaning-grid">
     <section class="panel-box clean-operations">
       <h2 class="panel-heading lavender">Select Cleaning Operations</h2>
       <div class="check-list">
-        <label><input type="checkbox" checked> <span>Handle missing values</span></label>
-        <label><input type="checkbox" checked> <span>Remove confirmed duplicate rows</span></label>
-        <label><input type="checkbox" checked> <span>Correct incorrect data types</span></label>
-        <label><input type="checkbox" checked> <span>Clean mixed values <small>(e.g. “25 years”, “₹30,000”)</small></span></label>
-        <label><input type="checkbox" checked> <span>Standardize text categories</span></label>
-        <label><input type="checkbox" checked> <span>Flag invalid or inconsistent values</span></label>
-        <label><input type="checkbox" checked> <span>Detect potential outliers</span></label>
-        <label><input type="checkbox"> <span>Suggest similar records for review <small>(no separate page)</small></span></label>
+        <label><input type="checkbox" name="operations" value="handle_missing" {% if 'handle_missing' in selected_ops %}checked{% endif %}> <span>Handle missing values</span></label>
+        <label><input type="checkbox" name="operations" value="remove_duplicates" {% if 'remove_duplicates' in selected_ops %}checked{% endif %}> <span>Remove confirmed duplicate rows</span></label>
+        <label><input type="checkbox" name="operations" value="correct_types" {% if 'correct_types' in selected_ops %}checked{% endif %}> <span>Correct incorrect data types</span></label>
+        <label><input type="checkbox" name="operations" value="clean_mixed_values" {% if 'clean_mixed_values' in selected_ops %}checked{% endif %}> <span>Clean mixed values <small>(e.g. "25 years", "$30,000")</small></span></label>
+        <label><input type="checkbox" name="operations" value="standardize_text" {% if 'standardize_text' in selected_ops %}checked{% endif %}> <span>Standardize text categories</span></label>
+        <label><input type="checkbox" name="operations" value="flag_invalid" {% if 'flag_invalid' in selected_ops %}checked{% endif %}> <span>Flag invalid or inconsistent values</span></label>
+        <label><input type="checkbox" name="operations" value="detect_outliers" {% if 'detect_outliers' in selected_ops %}checked{% endif %}> <span>Detect potential outliers</span></label>
       </div>
-      <p class="operations-help">Potential row deletions and semantic matches should require approval when backend cleaning is added.</p>
+      <p class="operations-help">You can rerun cleaning any time with a different operation set.</p>
     </section>
     <section class="panel-box clean-summary">
       <h2 class="panel-heading green">Cleaning Summary</h2>
-      <div class="summary-rows"><div><span>Missing values addressed</span><strong>125</strong></div><div><span>Duplicate rows removed</span><strong>45</strong></div><div><span>Data types corrected</span><strong>8</strong></div><div><span>Inconsistent values handled</span><strong>32</strong></div></div>
-      <p class="sample-tag">Illustrative results, not real cleaning output.</p>
+      <div class="summary-rows"><div><span>Missing values addressed</span><strong>{{ summary.missing_values_addressed | pretty }}</strong></div><div><span>Duplicate rows removed</span><strong>{{ summary.duplicate_rows_removed | pretty }}</strong></div><div><span>Data types corrected</span><strong>{{ summary.data_types_corrected | pretty }}</strong></div><div><span>Inconsistent values handled</span><strong>{{ summary.inconsistent_values_handled | pretty }}</strong></div><div><span>Invalid values flagged</span><strong>{{ summary.invalid_values_flagged | pretty }}</strong></div><div><span>Potential outliers flagged</span><strong>{{ summary.outliers_flagged | pretty }}</strong></div></div>
+      <p class="sample-tag">Values update after each cleaning run.</p>
     </section>
   </div>
-  <div class="bottom-links spread"><a href="{{ url_for('analysis') }}" class="btn btn-outline">← Back</a><button class="btn btn-pink btn-large" type="button" id="clean-demo">✦ Clean Dataset Now →</button><a href="{{ url_for('recommendations') }}" class="btn btn-blue">Preview Recommendations →</a></div>
+  <div class="bottom-links spread"><a href="{{ url_for('analysis') }}" class="btn btn-outline">← Back</a><button class="btn btn-pink btn-large" type="submit" id="clean-demo">✦ Clean Dataset Now →</button><a href="{{ url_for('recommendations') }}" class="btn btn-blue">Go to Recommendations →</a></div>
+  </form>
 </main>
 {% endblock %}

@@ -3,46 +3,71 @@
 {% block body %}
 <main class="page">
   <div class="page-title"><span class="title-icon yellow">▱</span><div><h1>Generate Synthetic Dataset</h1><p>Create customizable sample data for machine learning experiments.</p></div></div>
-  <div class="ui-hint">DESIGN PREVIEW • NO DATA IS GENERATED YET</div>
+  <div class="ui-hint">Create a dataset and load it into the CleanCraft workflow.</div>
   <div class="generator-grid">
     <section class="category-panel" aria-labelledby="category-title">
       <h2 id="category-title">Choose Dataset Type</h2>
       <div class="category-list" id="dataset-categories" role="group" aria-label="Dataset category">
-        <button class="category-item selected" type="button" data-category="House Price" aria-pressed="true"><span>⌂</span> House Price</button>
-        <button class="category-item" type="button" data-category="Student Performance" aria-pressed="false"><span>♧</span> Student Performance</button>
-        <button class="category-item" type="button" data-category="Email Spam" aria-pressed="false"><span>✉</span> Email Spam</button>
-        <button class="category-item" type="button" data-category="Healthcare" aria-pressed="false"><span>♡</span> Healthcare</button>
-        <button class="category-item" type="button" data-category="Banking & Loan" aria-pressed="false"><span>▤</span> Banking &amp; Loan</button>
-        <button class="category-item" type="button" data-category="E-commerce & Sales" aria-pressed="false"><span>▣</span> E-commerce &amp; Sales</button>
-        <button class="category-item" type="button" data-category="Vehicle Price" aria-pressed="false"><span>▰</span> Vehicle Price</button>
-        <button class="category-item" type="button" data-category="Weather" aria-pressed="false"><span>☼</span> Weather</button>
-        <button class="category-item" type="button" data-category="Social Media" aria-pressed="false"><span>❋</span> Social Media</button>
-        <button class="category-item" type="button" data-category="Employee Data" aria-pressed="false"><span>✣</span> Employee Data</button>
+        <button class="category-item {% if (selected_category or 'House Price') == 'House Price' %}selected{% endif %}" type="button" data-category="House Price" aria-pressed="{{ 'true' if (selected_category or 'House Price') == 'House Price' else 'false' }}"><span>⌂</span> House Price</button>
+        <button class="category-item {% if selected_category == 'Student Performance' %}selected{% endif %}" type="button" data-category="Student Performance" aria-pressed="{{ 'true' if selected_category == 'Student Performance' else 'false' }}"><span>♧</span> Student Performance</button>
+        <button class="category-item {% if selected_category == 'Email Spam' %}selected{% endif %}" type="button" data-category="Email Spam" aria-pressed="{{ 'true' if selected_category == 'Email Spam' else 'false' }}"><span>✉</span> Email Spam</button>
+        <button class="category-item {% if selected_category == 'Healthcare' %}selected{% endif %}" type="button" data-category="Healthcare" aria-pressed="{{ 'true' if selected_category == 'Healthcare' else 'false' }}"><span>♡</span> Healthcare</button>
+        <button class="category-item {% if selected_category == 'Banking & Loan' %}selected{% endif %}" type="button" data-category="Banking & Loan" aria-pressed="{{ 'true' if selected_category == 'Banking & Loan' else 'false' }}"><span>▤</span> Banking &amp; Loan</button>
+        <button class="category-item {% if selected_category == 'E-commerce & Sales' %}selected{% endif %}" type="button" data-category="E-commerce & Sales" aria-pressed="{{ 'true' if selected_category == 'E-commerce & Sales' else 'false' }}"><span>▣</span> E-commerce &amp; Sales</button>
+        <button class="category-item {% if selected_category == 'Vehicle Price' %}selected{% endif %}" type="button" data-category="Vehicle Price" aria-pressed="{{ 'true' if selected_category == 'Vehicle Price' else 'false' }}"><span>▰</span> Vehicle Price</button>
+        <button class="category-item {% if selected_category == 'Weather' %}selected{% endif %}" type="button" data-category="Weather" aria-pressed="{{ 'true' if selected_category == 'Weather' else 'false' }}"><span>☼</span> Weather</button>
+        <button class="category-item {% if selected_category == 'Social Media' %}selected{% endif %}" type="button" data-category="Social Media" aria-pressed="{{ 'true' if selected_category == 'Social Media' else 'false' }}"><span>❋</span> Social Media</button>
+        <button class="category-item {% if selected_category == 'Employee Data' %}selected{% endif %}" type="button" data-category="Employee Data" aria-pressed="{{ 'true' if selected_category == 'Employee Data' else 'false' }}"><span>✣</span> Employee Data</button>
       </div>
     </section>
     <div class="generator-main">
       <section class="panel-box config-card">
         <div class="panel-heading lavender">Configure Dataset</div>
-        <form id="generator-form" class="config-form">
+        <form id="generator-form" class="config-form" method="post" action="{{ url_for('generate') }}">
           <label for="dataset-type">Selected Category</label>
-          <input id="dataset-type" value="House Price" name="category" readonly>
+          <input id="dataset-type" value="{{ selected_category or 'House Price' }}" name="category" readonly>
           <label for="record-count">Number of Records</label>
-          <input id="record-count" name="records" type="number" min="1" max="100000" value="5000">
+          <input id="record-count" name="records" type="number" min="1" max="100000" value="{{ selected_records or '5000' }}">
           <label for="locality">Location / City <span class="muted">(optional)</span></label>
-          <input id="locality" name="locality" type="text" placeholder="e.g., Kolkata">
+          <input id="locality" name="locality" type="text" placeholder="e.g., Kolkata" value="{{ selected_locality or '' }}">
           <button class="btn btn-pink btn-form" type="submit">✦ Generate Dataset →</button>
         </form>
       </section>
       <section class="panel-box generator-preview">
         <div class="panel-heading lavender">Generated Dataset Preview</div>
-        <div class="skeleton-table" aria-label="Placeholder for future generated data">
+        {% if preview_rows %}
+        <div class="summary-rows">
+          <div><span>Category</span><strong>{{ generated_meta.category }}</strong></div>
+          <div><span>Records</span><strong>{{ generated_meta.records | pretty }}</strong></div>
+          <div><span>Locality</span><strong>{{ generated_meta.locality }}</strong></div>
+        </div>
+        <div class="table-wrap">
+          <table class="models-table">
+            <thead>
+              <tr>{% for col in generated_columns %}<th>{{ col }}</th>{% endfor %}</tr>
+            </thead>
+            <tbody>
+              {% for row in preview_rows %}
+              <tr>
+                {% for col in generated_columns %}
+                <td>{{ row[col] }}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <p class="note-under">Dataset generated successfully. Continue with analysis or recommendations.</p>
+        {% else %}
+        <div class="skeleton-table" aria-label="Dataset preview placeholder">
           <div class="skeleton-th"><i></i><i></i><i></i><i></i><i></i></div>
           {% for row in range(4) %}<div class="skeleton-tr"><i></i><i></i><i></i><i></i><i></i></div>{% endfor %}
         </div>
-        <p class="note-under">Data preview will appear when the Faker backend is connected.</p>
+        <p class="note-under">Generate a dataset to see preview rows here.</p>
+        {% endif %}
       </section>
     </div>
   </div>
-  <div class="bottom-links"><a class="btn btn-outline" href="{{ url_for('home') }}">← Back Home</a><a class="btn btn-blue" href="{{ url_for('recommendations') }}">Preview ML Recommendations →</a></div>
+  <div class="bottom-links"><a class="btn btn-outline" href="{{ url_for('home') }}">← Back Home</a><a class="btn btn-blue" href="{{ url_for('analysis') }}">Continue to Analysis →</a></div>
 </main>
 {% endblock %}
